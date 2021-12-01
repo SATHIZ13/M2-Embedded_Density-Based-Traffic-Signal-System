@@ -1,10 +1,13 @@
 #include<TimerOne.h>
+
 int signal1[] = {23, 25, 27};
 int signal2[] = {46, 48, 50};
 int signal3[] = {13, 12, 11};
 int signal4[] = {10, 9, 8};
+
 int redDelay = 5000;
 int yellowDelay = 2000;
+
 volatile int triggerpin1 = 31;    
 volatile int echopin1 = 29;       
 volatile int triggerpin2 = 44;     
@@ -13,13 +16,17 @@ volatile int triggerpin3 = 7;
 volatile int echopin3 = 6;       
 volatile int triggerpin4 = 5;    
 volatile int echopin4 = 4;       
+
 volatile long time;                    // Variable for storing the time traveled
 volatile int S1, S2, S3, S4;           // Variables for storing the distance covered
+
 int t = 5;  // distance under which it will look for vehicles.
+
 void setup(){
   Serial.begin(115200);
   Timer1.initialize(100000);  //Begin using the timer. This function must be called first. "microseconds" is the period of time the timer takes.
   Timer1.attachInterrupt(softInterr); //Run a function each time the timer period finishes.
+
   // Declaring LED pins as output
   for(int i=0; i<3; i++){
     pinMode(signal1[i], OUTPUT);
@@ -27,6 +34,7 @@ void setup(){
     pinMode(signal3[i], OUTPUT);
     pinMode(signal4[i], OUTPUT);
   }
+
   // Declaring ultrasonic sensor pins as output
   pinMode(triggerpin1, OUTPUT);  
   pinMode(echopin1, INPUT);      
@@ -37,6 +45,7 @@ void setup(){
   pinMode(triggerpin4, OUTPUT);  
   pinMode(echopin4, INPUT); 
 }
+
 void loop()
 {
   // If there are vehicles at signal 1
@@ -44,22 +53,26 @@ void loop()
   {
     signal1Function();
   }
+
   // If there are vehicles at signal 2
   if(S2<t)
   {
     signal2Function();
   }
+
   // If there are vehicles at signal 3
   if(S3<t)
   {
     signal3Function();
   }
+
   // If there are vehicles at signal 4
   if(S4<t)
   {
     signal4Function();
   }
 }
+
 // This is interrupt function and it will run each time the timer period finishes. The timer period is set at 100 milli seconds.
 void softInterr()
 {
@@ -71,6 +84,7 @@ void softInterr()
   digitalWrite(triggerpin1, LOW);
   time = pulseIn(echopin1, HIGH); 
   S1= time*0.034/2;
+
   // Reading from second ultrasonic sensor
   digitalWrite(triggerpin2, LOW);  
   delayMicroseconds(2);
@@ -79,6 +93,7 @@ void softInterr()
   digitalWrite(triggerpin2, LOW);
   time = pulseIn(echopin2, HIGH); 
   S2= time*0.034/2;
+
   // Reading from third ultrasonic sensor
   digitalWrite(triggerpin3, LOW);  
   delayMicroseconds(2);
@@ -87,6 +102,7 @@ void softInterr()
   digitalWrite(triggerpin3, LOW);
   time = pulseIn(echopin3, HIGH); 
   S3= time*0.034/2;
+
   // Reading from fourth ultrasonic sensor
   digitalWrite(triggerpin4, LOW);  
   delayMicroseconds(2);
@@ -95,6 +111,7 @@ void softInterr()
   digitalWrite(triggerpin4, LOW);
   time = pulseIn(echopin4, HIGH); 
   S4= time*0.034/2;
+
   // Print distance values on serial monitor for debugging
   Serial.print("S1: ");
   Serial.print(S1);
@@ -105,6 +122,7 @@ void softInterr()
   Serial.print("  S4: ");
   Serial.println(S4);
 }
+
 void signal1Function()
 {
   Serial.println("1");
@@ -113,6 +131,7 @@ void signal1Function()
   digitalWrite(signal1[0], LOW);
   digitalWrite(signal1[2], HIGH);
   delay(redDelay);
+
   // if there are vehicels at other signals
   if(S2<t || S3<t || S4<t)
   {
@@ -122,6 +141,7 @@ void signal1Function()
     delay(yellowDelay);
   }
 }
+
 void signal2Function()
 {
   Serial.println("2");
@@ -137,6 +157,7 @@ void signal2Function()
     delay(yellowDelay);   
   }
 }
+
 void signal3Function()
 {
   Serial.println("3");
@@ -144,6 +165,7 @@ void signal3Function()
   digitalWrite(signal3[0], LOW);
   digitalWrite(signal3[2], HIGH);
   delay(redDelay);
+
   if(S1<t || S2<t || S4<t)
   {
     digitalWrite(signal3[2], LOW);
@@ -151,6 +173,7 @@ void signal3Function()
     delay(yellowDelay);
   }  
 }
+
 void signal4Function()
 {
   Serial.println("4");
@@ -158,6 +181,7 @@ void signal4Function()
   digitalWrite(signal4[0], LOW);
   digitalWrite(signal4[2], HIGH);
   delay(redDelay);
+
   if(S1<t || S2<t || S3<t)
   {
     digitalWrite(signal4[2], LOW);
@@ -165,6 +189,7 @@ void signal4Function()
     delay(yellowDelay);
   }
 }
+
 // Function to make all LED's LOW except RED one's.
 void low()
 {
