@@ -1,7 +1,7 @@
 #ifndef ADC_H_
 #define ADC_H_
 
-#include "project_config.h"
+#include "traffic-signal-system.h"
 
 /**
  * @brief Function to initialise the analog to digital converter (ADC)
