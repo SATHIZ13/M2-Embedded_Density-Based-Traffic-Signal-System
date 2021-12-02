@@ -116,3 +116,5 @@ THREADS:
 ## Structural Diagram 2
 ![structural Diagram 2](https://user-images.githubusercontent.com/89175883/143846020-541b4416-aa81-45b4-81c5-75538766b749.jpg)
 
+## Block Diagram of density Based Traffic Signal System
+![Block-diagram-of-a-density-based-traffic-control-system](https://user-images.githubusercontent.com/89175883/143678740-09661206-175e-4652-ad2d-39b0fb06b8cd.png)
