@@ -122,6 +122,16 @@ THREADS:
 ## Simulation Image
 ![Circuit Simulation](https://user-images.githubusercontent.com/89175883/144375630-e623e24b-22c4-4759-a6a1-b08b7eccf356.jpeg)
 
+## Implementation
+## Programming Atmega328 with Embedded C Programming
+Steps to build the code
+
+Steps to run the simulation
+
+Steps to verify the working of code
+
+Schematic circuits
+
 ## TestPlanAndOutput
 ## HIGH LEVEL TESTING SCENARIOS
 
