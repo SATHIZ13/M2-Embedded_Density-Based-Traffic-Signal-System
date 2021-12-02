@@ -1,4 +1,4 @@
-DOXY_FILE = 
+DOXY_FILE = traffic-signal-system
 BUILD_FILE = html
 
 FixPath = $(subst /,\,$1)
